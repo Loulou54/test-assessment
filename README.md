@@ -1,5 +1,12 @@
 # test-assessment
 
+**Louis' note:**
+
+* Run the Database container using `make`
+* Then run `./gradlew run` to run the service.
+* Once you read "Server is listening on 0.0.0.0:8080" in the logs, you can query the API using a GET on this endpoint: http://localhost:8080/users
+* This will fetch data from https://randomuser.me/api/?results=20, insert them in the database and return the inserted users in the response.
+
 Installation requirements:
 
 * JDK ver. 11 and above

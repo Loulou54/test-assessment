@@ -1,9 +1,7 @@
-CREATE TABLE test (
-    id NUMERIC PRIMARY KEY,
-    val text
+CREATE TABLE Users (
+    id VARCHAR(40) PRIMARY KEY,
+    firstName text,
+    lastName text,
+    email text,
+    password text
 );
-
-INSERT INTO test(id, val)
-VALUES (1, 'some text');
-
-

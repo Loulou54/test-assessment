@@ -26,7 +26,7 @@ class TestRoutes(
       } ~
       get {
         complete {
-          deribitJavaService.getOk.toScala
+          deribitJavaService.getUsers.toScala
         }
       }
     }

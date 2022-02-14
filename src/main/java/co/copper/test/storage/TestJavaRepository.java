@@ -10,23 +10,34 @@ import org.springframework.stereotype.Repository;
 
 import com.sbuslab.utils.db.JacksonBeanRowMapper;
 
-import co.copper.test.datamodel.Test;
+import co.copper.test.datamodel.ApiUser;
+import co.copper.test.datamodel.User;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Repository
+@Slf4j
 public class TestJavaRepository {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
-    private final JacksonBeanRowMapper<Test> rowMapper;
+    private final JacksonBeanRowMapper<User> rowMapper;
 
     @Autowired
     public TestJavaRepository(NamedParameterJdbcTemplate jdbcTemplate, ObjectMapper mapper) {
         this.jdbcTemplate = jdbcTemplate;
-        this.rowMapper = new JacksonBeanRowMapper<>(Test.class, mapper);
+        this.rowMapper = new JacksonBeanRowMapper<>(User.class, mapper);
     }
 
-    public List<Test> getById(Long id) {
-        return jdbcTemplate.query("SELECT * FROM test WHERE id = :id", new MapSqlParameterSource("id", id), rowMapper);
+    public List<User> storeUser(ApiUser user) {
+        log.debug("Storing user: {}", user);
+        final MapSqlParameterSource parametersMap = new MapSqlParameterSource("id", user.getLogin().getUuid())
+                .addValue("firstName", user.getName().getFirst())
+                .addValue("lastName", user.getName().getLast())
+                .addValue("email", user.getEmail())
+                .addValue("password", user.getLogin().getPassword()); // TODO: hash the password with sha256 and salt or PBKDF2 or such.
+        return jdbcTemplate.query("INSERT INTO Users(id, firstName, lastName, email, password) VALUES (:id, :firstName, :lastName, :email, :password) RETURNING *;",
+                parametersMap,
+                rowMapper);
     }
 
 }

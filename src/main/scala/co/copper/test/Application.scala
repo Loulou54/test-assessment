@@ -26,7 +26,7 @@ object Application extends App with Logging {
       metrics("all") {
         toStrictEntity(5.seconds) {
           sbusContext { implicit context ⇒
-            pathPrefix("test")(ctx.getBean(classOf[TestRoutes]).anonymousRoutes)
+            pathPrefix("users")(ctx.getBean(classOf[TestRoutes]).anonymousRoutes)
           }
         }
       }

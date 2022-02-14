@@ -2,6 +2,12 @@ plugins {
     id 'java'
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
 apply plugin: 'application'
 apply plugin: 'scala'
 
@@ -17,8 +23,8 @@ repositories {
 
 dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
-    compile 'com.sbuslab:utils:1.2.+'
-    compile 'com.sbuslab:akka-http-tools:1.1.+'
+    implementation 'com.sbuslab:utils:1.2.+'
+    implementation 'com.sbuslab:akka-http-tools:1.1.+'
 }
 
 test {

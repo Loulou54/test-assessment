@@ -9,16 +9,16 @@ import org.springframework.stereotype.Repository
 
 import com.sbuslab.utils.db.JacksonBeanRowMapper
 
-import co.copper.test.datamodel.Test
+import co.copper.test.datamodel.User
 
 
 @Repository
 @Autowired
 class TestRepository(jdbcTemplate: NamedParameterJdbcTemplate, mapper: ObjectMapper) {
 
-  private val rowMapper = new JacksonBeanRowMapper(classOf[Test], mapper)
+  private val rowMapper = new JacksonBeanRowMapper(classOf[User], mapper)
 
-  def getById(id: Long): util.List[Test] =
+  def getById(id: Long): util.List[User] =
     jdbcTemplate.query("""
       SELECT * FROM test
       WHERE id = :id
